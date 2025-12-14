@@ -75,16 +75,22 @@ Berikut adalah hasil visualisasi minimal 3 aspek dari data:
 
 #### **Visualisasi 1: Distribusi Label Kelas**
 > *[Masukkan Screenshot Gambar Countplot/Bar Chart Distribusi Label dari Notebook Disini]*
+<img width="705" height="402" alt="Visualisasi 1" src="https://github.com/user-attachments/assets/4c4ec48a-856c-4052-b8b5-cc80ec1b63fa" />
+
 
 **Analisis:** Grafik ini menunjukkan jumlah dokumen untuk setiap kategori. Hal ini penting untuk mengetahui apakah dataset bersifat *imbalanced* (timpang) atau *balanced*. Jika timpang, kita perlu menggunakan metrik evaluasi selain akurasi (seperti F1-Score).
 
 #### **Visualisasi 2: Distribusi Panjang Kata (Word Count)**
 > *[Masukkan Screenshot Gambar Histogram Panjang Kata dari Notebook Disini]*
+<img width="860" height="479" alt="Visualisasi 2" src="https://github.com/user-attachments/assets/ef8903ef-e7e3-4ab1-ac04-f1acbd51384e" />
+
 
 **Analisis:** Histogram ini menunjukkan sebaran jumlah kata dalam abstrak. Informasi ini digunakan untuk menentukan parameter `MAX_SEQUENCE_LENGTH` pada model Deep Learning (LSTM), agar padding tidak terlalu panjang atau memotong informasi penting.
 
 #### **Visualisasi 3: Word Cloud**
 > *[Masukkan Screenshot Gambar WordCloud dari Notebook Disini]*
+<img width="790" height="427" alt="Visualisasi 3" src="https://github.com/user-attachments/assets/3dd4e116-bd40-443b-81ed-fc1f58c1b72f" />
+
 
 **Analisis:** Word Cloud menampilkan kata-kata yang paling sering muncul di seluruh korpus data. Kata yang berukuran besar mengindikasikan frekuensi kemunculan yang tinggi, memberikan gambaran umum mengenai topik dominan dalam dataset.
 
@@ -186,4 +192,5 @@ Proyek ini dikembangkan menggunakan Python dengan library utama:
 - `scikit-learn` (ML Models & Metrics)
 - `tensorflow` (Deep Learning)
 - `nltk` (Text Processing)
+
 
