@@ -4,11 +4,11 @@
 
 **Judul Proyek:** Klasifikasi Otomatis Abstrak Jurnal Ilmiah Menggunakan LSTM dan Support Vector Machine
 
-**Nama Mahasiswa:** [Isi Nama Lengkap Anda Disini]  
-**NIM:** [Isi NIM Anda Disini]  
-**Program Studi:** [Isi Prodi Anda Disini]  
-**Mata Kuliah:** Machine Learning / Deep Learning  
-**Dosen Pengampu:** [Isi Nama Dosen Anda]  
+**Nama Mahasiswa:** Adam Mahabayu Muhibbulloh  
+**NIM:** 234311002 
+**Program Studi:** D4 Teknologi Rekayasa Perangkat Lunak 
+**Mata Kuliah:** Data Science
+**Dosen Pengampu:** Gus Nanang Syaifuddiin  
 **Tahun Akademik:** 2024/2025  
 **Link GitHub Repository:** [Isi Link Repository GitHub Anda Disini]  
 **Link Video Pembahasan:** [Isi Link Video YouTube Anda Disini]  
@@ -186,3 +186,4 @@ Proyek ini dikembangkan menggunakan Python dengan library utama:
 - `scikit-learn` (ML Models & Metrics)
 - `tensorflow` (Deep Learning)
 - `nltk` (Text Processing)
+
