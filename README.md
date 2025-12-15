@@ -1,8 +1,8 @@
 # 📘 Judul Proyek
-*(Isi judul proyek Anda di sini)*
+Klasifikasi Otomatis Abstrak Jurnal Ilmiah Menggunakan LSTM dan Support Vector Machine
 
 ## 👤 Informasi
-- **Nama:** [...]  
+- **Nama:** Adam Mahabayu Muhibbulloh  
 - **Repo:** [...]  
 - **Video:** [...]  
 
@@ -18,12 +18,13 @@
 
 # 2. 📄 Problem & Goals
 **Problem Statements:**  
-- [...]  
-- [...]  
+- Proses klasifikasi jurnal secara manual memakan waktu lama dan tidak efisien seiring bertambahnya volume publikasi.
+- Diperlukan sistem yang dapat membedakan topik jurnal yang memiliki istilah teknis serupa.
 
 **Goals:**  
-- [...]  
-- [...]  
+- Membangun pipeline *text preprocessing* yang efektif untuk data abstrak ilmiah.
+- Mengembangkan model klasifikasi dengan akurasi minimal **80%**.
+- Membandingkan performa antara model probabilistik sederhana (Naive Bayes), model linear margin (SVM), dan model sekuensial (LSTM).
 
 ---
 ## 📁 Struktur Folder
@@ -64,16 +65,22 @@ project/
 ---
 
 # 4. 🔧 Data Preparation
-- Cleaning (missing/duplicate/outliers)  
-- Transformasi (encoding/scaling)  
-- Splitting (train/val/test)  
+1.  **Text Cleaning:**
+    - *Lowercasing* (huruf kecil).
+    - Menghapus tanda baca (regex) dan angka.
+    - Menghapus *stopwords* (kata umum seperti "the", "and") menggunakan NLTK.
+2.  **Encoding:** Mengubah label kategori menjadi angka (0, 1, ...).
+3.  **Splitting:** Membagi data menjadi **80% Train** dan **20% Test** (Stratified).
+4.  **Vectorization:**
+    - **TF-IDF:** Digunakan untuk Naive Bayes dan SVM (Max features: 5000).
+    - **Tokenization & Padding:** Digunakan untuk LSTM (Max sequence length: 200 kata). 
 
 ---
 
 # 5. 🤖 Modeling
-- **Model 1 – Baseline:** [...]  
-- **Model 2 – Advanced ML:** [...]  
-- **Model 3 – Deep Learning:** [...]  
+- **Model 1 – Baseline:** Multinomial Naive Bayes  
+- **Model 2 – Advanced ML:** Support Vector Machine (SVM)
+- **Model 3 – Deep Learning:** Long Short-Term Memory (LSTM)
 
 ---
 
@@ -81,28 +88,31 @@ project/
 **Metrik:** Accuracy / F1 / MAE / MSE (pilih sesuai tugas)
 
 ### Hasil Singkat
-| Model | Score | Catatan |
-|-------|--------|---------|
-| Baseline | [...] | |
-| Advanced | [...] | |
-| Deep Learning | [...] | |
+| Model | Accuracy | F1-Score | Keterangan |
+|-------|----------|----------|------------|
+| Naive Bayes | 81% | 0.74 | *Underperform* pada kelas minoritas. |
+| **SVM (Linear)** | **93%** | **0.93** | **Model Terbaik (Best Model)**. |
+| LSTM (Deep Learning) | 87% | 0.87 | Performa baik, namun kalah efisien dari SVM. |
 
 ---
 
 # 7. 🏁 Kesimpulan
-- Model terbaik: [...]  
-- Alasan: [...]  
-- Insight penting: [...]  
+- Model terbaik: SVM  
+- Alasan: Karena kemampuannya menangani data teks berdimensi tinggi dengan jumlah sampel yang terbatas (*small dataset*).
+- Insight penting:
+    1.  **Kompleksitas ≠ Performa:** Model Deep Learning (LSTM) yang kompleks dan berat tidak selalu mengalahkan model Machine Learning klasik (SVM) jika datanya tidak cukup besar.
+    2.  **Jebakan Akurasi:** Model Naive Bayes mengajarkan kita untuk berhati-hati dengan metrik akurasi pada *imbalanced data*. Meskipun akurasinya 81%, ia gagal mengenali kelas minoritas (Recall rendah).
+    3.  **Efisiensi:** SVM memberikan keseimbangan terbaik (Sweet Spot) antara waktu training yang cepat (< 10 detik) dan akurasi yang tinggi, menjadikannya pilihan paling efisien untuk *deployment*.
 
 ---
 
 # 8. 🔮 Future Work
-- [ ] Tambah data  
-- [ ] Tuning model  
-- [ ] Coba arsitektur DL lain  
+- [x] Tambah data  
+- [x] Tuning model  
+- [x] Coba arsitektur DL lain  
 - [ ] Deployment  
 
 ---
 
 # 9. 🔁 Reproducibility
-Gunakan environment:
+Gunakan environment: Google Colab
