@@ -53,14 +53,20 @@ project/
 ---
 
 # 3. 📊 Dataset
-- **Sumber:** [...]  
-- **Jumlah Data:** [...]  
-- **Tipe:** [...]  
+- **Sumber:** https://archive.ics.uci.edu
+- **Jumlah Data:** Jumlah baris (rows): 1138 & Jumlah kolom (columns/features): 3.
+- **Tipe:** Text
 
-### Fitur Utama
-| Fitur | Deskripsi |
-|------|-----------|
-| ... | ... |
+**Fitur Utama:**
+- `Abstract`: Berisi teks ringkasan jurnal ilmiah.
+- `Label`: Kategori/Topik dari jurnal tersebut (Target Variable).
+- **Nama File:** `classified_abstracts.json`
+- **Sumber Data:** https://archive.ics.uci.edu
+- **Jumlah baris (rows):** 1138
+- **Jumlah kolom (columns/features):** 3.
+- **Tipe data:** Text
+- **Ukuran dataset:** 1.3122 MB
+- **Format file:** JSON
 
 ---
 
