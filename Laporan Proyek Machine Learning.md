@@ -34,9 +34,17 @@ Pada proyek ini, mahasiswa diharapkan dapat:
 ## 2. PROJECT OVERVIEW
 
 ### 2.1 Latar Belakang
-Pertumbuhan publikasi ilmiah yang sangat pesat menyebabkan membludaknya jumlah artikel jurnal baru setiap harinya. Hal ini menyulitkan peneliti dan pengelola basis data untuk memilah artikel yang relevan ke dalam kategori topik tertentu secara manual. Pengelompokan manual memakan waktu lama dan rentan terhadap inkonsistensi (*human error*).
+Dalam dekade terakhir, volume publikasi ilmiah dan literatur akademik telah mengalami pertumbuhan eksponensial. Ribuan artikel jurnal baru diterbitkan setiap harinya di berbagai disiplin ilmu, menciptakan fenomena yang dikenal sebagai information overload. Bagi peneliti, akademisi, dan pengelola perpustakaan digital, tantangan terbesarnya bukan lagi pada ketersediaan data, melainkan pada bagaimana mengelola, memilah, dan menemukan kembali informasi yang relevan secara efisien.
 
-Oleh karena itu, diperlukan sistem otomatis berbasis *Machine Learning* dan *Deep Learning* yang dapat membaca abstrak jurnal dan memprediksi kategori topiknya. Proyek ini membandingkan kinerja metode tradisional (Naive Bayes & SVM) dengan metode jaringan saraf tiruan (LSTM) untuk menyelesaikan masalah klasifikasi teks tersebut.
+Secara tradisional, proses pengkategorian atau pengindeksan artikel jurnal dilakukan secara manual oleh pakar manusia. Metode ini memiliki kelemahan signifikan: memakan waktu lama (time-consuming), biaya tinggi, dan rentan terhadap inkonsistensi akibat kelelahan atau subjektivitas manusia (human error). Ketika jumlah dokumen mencapai ribuan hingga jutaan, metode manual menjadi tidak lagi relevan (skalabilitas rendah).
+
+Oleh karena itu, penerapan teknologi Natural Language Processing (NLP) dan Machine Learning menjadi solusi krusial. Proyek ini berfokus pada pengembangan sistem klasifikasi teks otomatis yang dapat memprediksi topik dari sebuah jurnal hanya dengan membaca abstraknya. Abstrak dipilih karena merupakan ringkasan padat yang merepresentasikan inti dari keseluruhan konten dokumen.
+
+Pentingnya proyek ini terletak pada potensinya untuk membantu sistem repositori ilmiah dalam mengotomatisasi pelabelan dokumen. Dengan membandingkan metode Machine Learning klasik (seperti Naive Bayes dan SVM) melawan metode Deep Learning modern (seperti LSTM), penelitian ini juga bertujuan untuk mengevaluasi seberapa efektif model jaringan saraf tiruan dalam menangkap konteks semantik bahasa ilmiah dibandingkan model berbasis frekuensi kata sederhana.
+
+**Referensi Ilmiah:**
+- Aggarwal, C. C., & Zhai, C. (2012). Mining Text Data. Springer Science & Business Media. (Menjelaskan fundamental pengolahan data teks).
+- Jurafsky, D., & Martin, J. H. (2024). Speech and Language Processing (3rd ed.). Pearson. (Referensi utama dalam bidang NLP dan klasifikasi teks).
 
 ---
 
@@ -90,37 +98,18 @@ Berdasarkan hasil pemeriksaan awal (data understanding), berikut adalah kondisi 
 
 ### 4.4 Exploratory Data Analysis (EDA) - (**OPSIONAL**)
 
-**Requirement:** Minimal 3 visualisasi yang bermakna dan insight-nya.
-**Contoh jenis visualisasi yang dapat digunakan:**
-- Histogram (distribusi data)
-- Boxplot (deteksi outliers)
-- Heatmap korelasi (hubungan antar fitur)
-- Bar plot (distribusi kategori)
-- Scatter plot (hubungan 2 variabel)
-- Wordcloud (untuk text data)
-- Sample images (untuk image data)
-- Time series plot (untuk temporal data)
-- Confusion matrix heatmap
-- Class distribution plot
-
 Berikut adalah hasil visualisasi minimal 3 aspek dari data:
 
 #### **Visualisasi 1: Distribusi Label Kelas**
 <img width="705" height="402" alt="Visualisasi 1" src="https://github.com/user-attachments/assets/4c4ec48a-856c-4052-b8b5-cc80ec1b63fa" />
-
-
 **Analisis:** Grafik ini menunjukkan jumlah dokumen untuk setiap kategori. Hal ini penting untuk mengetahui apakah dataset bersifat *imbalanced* (timpang) atau *balanced*. Jika timpang, kita perlu menggunakan metrik evaluasi selain akurasi (seperti F1-Score).
 
 #### **Visualisasi 2: Distribusi Panjang Kata (Word Count)**
 <img width="860" height="479" alt="Visualisasi 2" src="https://github.com/user-attachments/assets/ef8903ef-e7e3-4ab1-ac04-f1acbd51384e" />
-
-
 **Analisis:** Histogram ini menunjukkan sebaran jumlah kata dalam abstrak. Informasi ini digunakan untuk menentukan parameter `MAX_SEQUENCE_LENGTH` pada model Deep Learning (LSTM), agar padding tidak terlalu panjang atau memotong informasi penting.
 
 #### **Visualisasi 3: Word Cloud**
 <img width="790" height="427" alt="Visualisasi 3" src="https://github.com/user-attachments/assets/3dd4e116-bd40-443b-81ed-fc1f58c1b72f" />
-
-
 **Analisis:** Word Cloud menampilkan kata-kata yang paling sering muncul di seluruh korpus data. Kata yang berukuran besar mengindikasikan frekuensi kemunculan yang tinggi, memberikan gambaran umum mengenai topik dominan dalam dataset.
 
 ---
@@ -145,7 +134,7 @@ Proses pembersihan teks yang dilakukan meliputi:
 - **Padding Sequences:** Menyamakan panjang seluruh input urutan kata menjadi 200 kata (maxlen=200). Kalimat yang lebih pendek akan diberi nilai 0 (padding), dan kalimat yang lebih panjang akan dipotong (truncated). Ini diperlukan agar data dapat diproses dalam bentuk matriks oleh GPU.
 - **Label Encoding:** Mengubah target variabel (Label) yang berbentuk teks kategori menjadi format numerik (0, 1, 2, dst.) agar dapat dikalkulasi oleh fungsi loss model.
 
-## 5.4 5.4 Data Splitting
+## 5.4 Data Splitting
 - **Training Set:** 80% (Digunakan untuk melatih bobot model).
 - **Test Set:** 20% (Disembunyikan saat training, digunakan murni untuk evaluasi akhir).
 
@@ -273,22 +262,6 @@ Dataset berupa teks abstrak merupakan data sekuensial (urutan kata). Model tradi
 **Deskripsi Layer:**
 <img width="805" height="377" alt="image" src="https://github.com/user-attachments/assets/ceb319d9-c4e7-4af8-b90e-ab59ffb1f4fd" />
 
-**Contoh:**
-```
-1. Input Layer: shape (224, 224, 3)
-2. Conv2D: 32 filters, kernel (3,3), activation='relu'
-3. MaxPooling2D: pool size (2,2)
-4. Conv2D: 64 filters, kernel (3,3), activation='relu'
-5. MaxPooling2D: pool size (2,2)
-6. Flatten
-7. Dense: 128 units, activation='relu'
-8. Dropout: 0.5
-9. Dense: 10 units, activation='softmax'
-
-Total parameters: [jumlah]
-Trainable parameters: [jumlah]
-```
-
 #### 6.3.3 Input & Preprocessing Khusus
 
 **Input shape:** (None, 200) — Panjang sekuens dibatasi 200 kata. 
@@ -348,12 +321,6 @@ Platform: Google Colab (Standard Runtime).
 **Training History Visualization:**
 <img width="997" height="378" alt="Accuracy   Loss" src="https://github.com/user-attachments/assets/f214d99a-42b5-426b-87a0-e8d08ae4089a" />
 
-[Insert plot loss dan accuracy/metric per epoch]
-
-**Contoh visualisasi yang WAJIB:**
-1. **Training & Validation Loss** per epoch
-2. **Training & Validation Accuracy/Metric** per epoch
-
 **Analisis Training:**
 - Apakah model mengalami overfitting? Grafik validation loss cenderung stabil menurun seiring dengan training loss, yang menandakan model belajar dengan baik tanpa overfitting yang parah (berkat layer Dropout).
 - Apakah model sudah converge? Model mencapai konvergensi yang cukup baik hanya dalam 5 epoch karena dataset teks ini relatif bersih dan tidak terlalu kompleks.
@@ -382,64 +349,54 @@ _________________________________________________________________
 
 ## 7. EVALUATION
 
-Evaluasi dilakukan menggunakan metrik **Accuracy** dan **Classification Report** (Precision, Recall, F1-Score) pada data uji (20% data yang tidak dilihat saat training).
-
-### 7.1 Hasil Evaluasi
-Berikut adalah ringkasan hasil akurasi dari ketiga model:
-
-| Model | Akurasi | Keterangan |
-|-------|---------|------------|
-| Naive Bayes | **[Isi Hasil NB]** | Baseline, training sangat cepat. |
-| SVM (Linear) | **[Isi Hasil SVM]** | Akurasi tinggi, training lebih lambat. |
-| LSTM (Deep Learning) | **[Isi Hasil LSTM]** | Mampu menangkap konteks kompleks. |
-
-> *[Masukkan Screenshot Tabel Classification Report atau Grafik Perbandingan Model Disini]*
-
-## 7. EVALUATION
-
 ### 7.1 Metrik Evaluasi
 
-**Pilih metrik yang sesuai dengan jenis tugas:**
-
-#### **Untuk Klasifikasi:**
-- **Accuracy**: Proporsi prediksi yang benar dari total data. Cocok digunakan karena dataset relatif seimbang.
-- **Weighted F1-Score**: Rata-rata harmonis dari Precision dan Recall yang mempertimbangkan bobot jumlah sampel tiap kelas. Metrik ini lebih representatif daripada akurasi jika terjadi sedikit ketimpangan data antar kelas.
-- **Confusion Matrix**: Digunakan untuk memvisualisasikan di mana model sering melakukan kesalahan (misal: sering salah memprediksi topik A sebagai topik B).
+#### **Untuk NLP (Text Classification):**
+- **Accuracy:** Digunakan untuk melihat performa model secara global (berapa persen total prediksi yang benar).
+- **Weighted F1-Score:** Metrik utama yang digunakan. Karena dataset memiliki distribusi kelas yang tidak seimbang (imbalanced), F1-Score (rata-rata harmonis Precision dan Recall) memberikan gambaran kinerja yang lebih jujur daripada sekadar akurasi.
+- **Confusion Matrix:** Digunakan untuk memvisualisasikan detail kesalahan prediksi (berapa banyak False Positive dan False Negative).
 
 ### 7.2 Hasil Evaluasi Model
 
-#### 7.2.1 Model 1 (Baseline - Naive Bayes)
+#### 7.2.1 Model 1 (Baseline)
 
-- Accuracy: 0.81
-- Precision (Weighted): 0.85
-- Recall (Weighted): 0.81
-- F1-Score (Weighted): 0.74
+**Metrik:**
+- Accuracy: 0.82
+- Precision: 0.85
+- Recall: 0.81
+- F1-Score: 0.74
+
 
 **Confusion Matrix / Visualization:**  
-[Insert gambar jika ada]
+<img width="458" height="402" alt="Confusion Matrix-Naive Bayes" src="https://github.com/user-attachments/assets/0aef925d-92ad-48c4-b91f-33fc2efb1d2d" />
+**Analisis:** Model Baseline memiliki akurasi yang terlihat cukup tinggi (81%), namun nilai F1-Score (0.74) lebih rendah. Hal ini disebabkan karena model cenderung bias memprediksi kelas mayoritas dan gagal mengenali kelas minoritas (Recall kelas 1 sangat rendah).
 
-#### 7.2.2 Model 2 (Machine Learning - SVM)
+#### 7.2.2 Model 2 (Advanced/ML)
 
+**Metrik:**
 - Accuracy: 0.93
 - Precision (Weighted): 0.93
 - Recall (Weighted): 0.93
 - F1-Score (Weighted): 0.93
 
 **Confusion Matrix / Visualization:**  
-[Insert gambar jika ada]
+<img width="458" height="402" alt="Confusion Matrix-SVM" src="https://github.com/user-attachments/assets/76bdf9b5-f581-4aaa-bdd4-2e7049b30b84" />
+**Analisis:** SVM dengan kernel Linear memberikan hasil terbaik. Model ini berhasil menyeimbangkan Precision dan Recall dengan sangat baik (keduanya > 90%), membuktikan bahwa fitur teks abstrak dapat dipisahkan secara linear (linearly separable) dengan baik pada dimensi tinggi.
 
 **Feature Importance (jika applicable):**  
 [Insert plot feature importance untuk tree-based models]
 
 #### 7.2.3 Model 3 (Deep Learning)
 
+**Metrik:**
 - Accuracy: 0.86
 - Precision (Weighted): 0.87
 - Recall (Weighted): 0.86
 - F1-Score (Weighted): 0.87
 
 **Confusion Matrix / Visualization:**  
-[Insert gambar jika ada]
+<img width="458" height="402" alt="Confusion Matrix-LSTM" src="https://github.com/user-attachments/assets/c482f979-0b44-4b24-baef-ba89f7952cd3" />
+**Analisis:** LSTM memberikan performa yang stabil (86%) dan jauh lebih baik daripada Baseline. Namun, pada dataset ini, kompleksitas LSTM belum mampu mengungguli efisiensi SVM.
 
 **Training History:**  
 [Sudah diinsert di Section 6.3.6]
@@ -448,30 +405,34 @@ Berikut adalah ringkasan hasil akurasi dari ketiga model:
 [Opsional: tampilkan beberapa contoh prediksi]
 
 ### 7.3 Perbandingan Ketiga Model
-<img width="867" height="281" alt="image" src="https://github.com/user-attachments/assets/da9231b2-e66d-4c6a-bcd9-dec4bf9f4f2a" />
+
+**Tabel Perbandingan:**
+
+<img width="937" height="145" alt="image" src="https://github.com/user-attachments/assets/cfa550ab-5964-40b1-aa1a-9a5fe9228352" />
 
 
 **Visualisasi Perbandingan:**  
-<img width="677" height="455" alt="Perbandingan Akurasi Ketiga Model" src="https://github.com/user-attachments/assets/1d0eef3d-1442-49d0-8b4f-239cc66e27db" />
+<img width="677" height="455" alt="Perbandingan Akurasi Ketiga Model" src="https://github.com/user-attachments/assets/7cdd3a8a-da0c-4c32-952d-a3aafad9d1b3" />
+
 
 ### 7.4 Analisis Hasil
 
 **Interpretasi:**
 
 1. **Model Terbaik:**  
-   Model LSTM terpilih sebagai model terbaik dengan akurasi tertinggi (~87%). Hal ini menunjukkan bahwa struktur kalimat (sequence) pada abstrak ilmiah mengandung informasi penting yang dapat diekstrak oleh RNN
+   Support Vector Machine (SVM) adalah model terbaik dengan akurasi 93%. SVM unggul karena kemampuannya menangani data berdimensi tinggi (hasil TF-IDF) dan menemukan margin pemisah yang optimal antar topik.
 
 2. **Perbandingan dengan Baseline:**  
-   Terdapat peningkatan performa sekitar +11% dari model baseline (Naive Bayes) ke model Deep Learning (LSTM). Ini memvalidasi bahwa pendekatan Deep Learning sepadan dengan biaya komputasi tambahannya.
+   Kedua model lanjutan (SVM dan LSTM) berhasil mengungguli Baseline (Naive Bayes) secara signifikan dalam hal F1-Score. Ini menunjukkan bahwa Naive Bayes terlalu sederhana untuk menangkap pola pada kelas minoritas, sementara SVM dan LSTM lebih robust.
 
 3. **Trade-off:**  
-   Meskipun LSTM paling akurat, waktu training-nya jauh lebih lama (menit vs detik). Untuk aplikasi real-time dengan sumber daya terbatas, SVM bisa menjadi alternatif yang baik karena ringan namun tetap cukup akurat.
+   SVM memberikan keseimbangan terbaik: waktu training sangat cepat (hanya beberapa detik) dengan akurasi tertinggi. LSTM membutuhkan waktu training paling lama (karena epoch dan komputasi neural network) namun hasilnya masih di bawah SVM untuk kasus data ini.
 
 4. **Error Analysis:**  
-   Berdasarkan Confusion Matrix, kesalahan sering terjadi pada kategori yang berdekatan secara topik (misal: "Computer Science" vs "Mathematics") karena banyak menggunakan istilah teknis yang sama (seperti "algorithm", "model", "data").
+   [Jelaskan jenis kesalahan yang sering terjadi, kasus yang sulit diprediksi]
 
 5. **Overfitting/Underfitting:**  
-   [Analisis apakah model mengalami overfitting atau underfitting]
+   Overfitting/Underfitting: Berdasarkan kurva training history, LSTM menunjukkan sedikit tanda overfitting (akurasi training terus naik, validasi stagnan), namun diatasi dengan layer Dropout. SVM menunjukkan generalisasi yang sangat baik pada data uji.
 
 ---
 
@@ -480,34 +441,32 @@ Berikut adalah ringkasan hasil akurasi dari ketiga model:
 ### 8.1 Kesimpulan Utama
 
 **Model Terbaik:**  
-Long Short-Term Memory (LSTM) dengan akurasi 86%.
+Model Terbaik: SVM (Linear Kernel) dengan Akurasi 93%.
 
 **Alasan:**  
-Model ini mampu menangkap konteks semantik dan urutan kata dalam abstrak jurnal, yang merupakan data teks sekuensial. Model SVM juga memberikan hasil kompetitif, namun LSTM lebih unggul dalam membedakan nuansa kalimat.
+Model ini paling efektif memisahkan topik abstrak jurnal yang direpresentasikan dalam vektor TF-IDF. SVM terbukti lebih tangguh terhadap ketidakseimbangan data dibandingkan Naive Bayes dan lebih efisien secara komputasi dibandingkan LSTM.
 
 **Pencapaian Goals:**  
-- Pipa preprocessing data teks berhasil dibangun.
-- Tiga model berhasil dilatih dan dievaluasi.
-- Akurasi model terbaik melampaui target minimum 80%.
-- Model telah disimpan dan siap digunakan kembali.
+- Preprocessing data teks berhasil dilakukan.
+- Tiga model (Baseline, ML, DL) berhasil dibangun dan dibandingkan.
+- Target akurasi >80% berhasil dilampaui oleh SVM (93%) dan LSTM (86%).
 
 ### 8.2 Key Insights
 
 **Insight dari Data:**
-- Abstrak jurnal ilmiah memiliki struktur bahasa yang formal dan baku, memudahkan model untuk belajar pola dibandingkan bahasa gaul (slang).
-- Panjang abstrak yang bervariasi memerlukan penanganan padding yang tepat agar informasi tidak hilang.
+- Data teks abstrak memiliki pola kata kunci yang kuat (misal: "algorithm", "method" untuk CS vs "patient", "clinical" untuk Medis), memudahkan model linear seperti SVM.
+- Penanganan imbalanced data sangat penting; melihat akurasi saja bisa menipu (seperti pada kasus Naive Bayes).
 
 **Insight dari Modeling:**
-- Representasi kata menggunakan Embedding (Dense Vector) jauh lebih kaya informasi dibandingkan TF-IDF (Sparse Vector).
-- Dropout Layer sangat efektif mencegah overfitting pada model LSTM, terlihat dari grafik loss yang stabil.
+- Deep Learning tidak selalu menjadi solusi terbaik untuk semua masalah. Untuk dataset teks berukuran sedang dengan fitur yang jelas, algoritma ML klasik seperti SVM bisa mengalahkan Neural Network.
 
 ### 8.3 Kontribusi Proyek
 
 **Manfaat praktis:**  
-Model ini dapat diintegrasikan ke dalam sistem repositori perpustakaan digital untuk mengotomatisasi proses pengkategorian jurnal baru, menghemat waktu pustakawan dan peneliti.
+Model ini dapat diimplementasikan pada sistem perpustakaan digital kampus untuk mengotomatisasi proses tagging atau pengelompokan jurnal yang baru diunggah mahasiswa, mengurangi beban kerja pustakawan.
 
 **Pembelajaran yang didapat:**  
-[Jelaskan apa yang Anda pelajari dari proyek ini]
+Saya mempelajari pentingnya memilih metrik evaluasi yang tepat (F1-Score vs Accuracy) dan memahami bahwa kompleksitas model (LSTM) harus dibayar dengan biaya komputasi yang lebih tinggi.
 
 ---
 
@@ -525,7 +484,7 @@ Saran pengembangan untuk proyek selanjutnya:
 - [ ] Mencoba arsitektur DL yang lebih kompleks
 - [ ] Hyperparameter tuning lebih ekstensif
 - [ ] Ensemble methods (combining models)
-- [x] Transfer learning dengan model yang lebih besar
+- [ ] Transfer learning dengan model yang lebih besar
 
 **Deployment:**
 - [x] Membuat API (Flask/FastAPI)
@@ -556,25 +515,14 @@ Saran pengembangan untuk proyek selanjutnya:
 
 ### 10.2 Environment & Dependencies
 
-**Python Version:** [3.8 / 3.9 / 3.10 / 3.11]
-
+**Python Version:** 3.10
+Proyek ini dijalankan di Google Colab.
 **Main Libraries & Versions:**
-```
-numpy==1.24.3
-pandas==2.0.3
-scikit-learn==1.3.0
-matplotlib==3.7.2
-seaborn==0.12.2
-
-# Deep Learning Framework (pilih salah satu)
-tensorflow==2.14.0  # atau
-torch==2.1.0        # PyTorch
-
-# Additional libraries (sesuaikan)
-xgboost==1.7.6
-lightgbm==4.0.0
-opencv-python==4.8.0  # untuk computer vision
-nltk==3.8.1           # untuk NLP
-transformers==4.30.0  # untuk BERT, dll
-
-```
+numpy==1.23.5
+pandas==1.5.3
+scikit-learn==1.2.2
+matplotlib==3.7.1
+seaborn==0.13.1
+tensorflow==2.15.0
+nltk==3.8.1
+joblib==1.3.2
