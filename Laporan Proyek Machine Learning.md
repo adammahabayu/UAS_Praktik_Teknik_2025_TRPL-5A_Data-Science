@@ -10,7 +10,7 @@
 **Mata Kuliah:** Data Science
 **Dosen Pengampu:** Gus Nanang Syaifuddiin  
 **Tahun Akademik:** 2024/2025  
-**Link GitHub Repository:** [Isi Link Repository GitHub Anda Disini]  
+**Link GitHub Repository:** https://github.com/adammahabayu/UAS_Praktik_Teknik_2025_TRPL-5A_Data-Science  
 **Link Video Pembahasan:** [Isi Link Video YouTube Anda Disini]  
 
 ---
@@ -322,9 +322,9 @@ Platform: Google Colab (Standard Runtime).
 <img width="997" height="378" alt="Accuracy   Loss" src="https://github.com/user-attachments/assets/f214d99a-42b5-426b-87a0-e8d08ae4089a" />
 
 **Analisis Training:**
-- Apakah model mengalami overfitting? Grafik validation loss cenderung stabil menurun seiring dengan training loss, yang menandakan model belajar dengan baik tanpa overfitting yang parah (berkat layer Dropout).
-- Apakah model sudah converge? Model mencapai konvergensi yang cukup baik hanya dalam 5 epoch karena dataset teks ini relatif bersih dan tidak terlalu kompleks.
-- Apakah perlu lebih banyak epoch? 5 Epoch sudah cukup. Menambah epoch lebih banyak berisiko meningkatkan waktu komputasi tanpa kenaikan akurasi yang signifikan (diminishing returns).
+- Apakah model mengalami overfitting? Tidak Signifikan. Meskipun akurasi pada data latih (Training Accuracy) sedikit lebih tinggi daripada data validasi (Validation Accuracy), jarak (gap) keduanya tidak terlalu jauh. Hal ini menunjukkan bahwa penggunaan layer SpatialDropout1D dan Dropout pada arsitektur LSTM berhasil mencegah model menghafal data (memorization) dan menjaga kemampuan generalisasi.
+- Apakah model sudah converge? Ya. Dilihat dari grafik Loss, penurunan error terjadi secara tajam pada Epoch 1 dan 2, kemudian mulai melandai (flatten) pada Epoch 3 hingga 5. Ini menandakan model telah menemukan pola optimal dengan cepat.
+- Apakah perlu lebih banyak epoch? Tidak Perlu. Pada Epoch ke-5, grafik Validation Loss sudah mulai stabil atau bahkan menunjukkan tanda-tanda akan naik jika diteruskan. Menambah jumlah epoch (misalnya menjadi 20 atau 50) hanya akan membuang sumber daya komputasi dan berisiko meningkatkan overfitting tanpa memberikan kenaikan akurasi yang berarti pada data validasi..
 
 #### 6.3.7 Model Summary
 Model: "sequential"
@@ -337,13 +337,13 @@ _________________________________________________________________
                                                                  
  lstm (LSTM)                 (None, 100)               80400     
                                                                  
- dense (Dense)               (None, 5)                 505       
+ dense (Dense)               (None, 2)                 202       
                                                                  
 =================================================================
-Total params: 1,080,905
-Trainable params: 1,080,905
+Total params: 1,080,602
+Trainable params: 1,080,602
 Non-trainable params: 0
-_________________________________________________________________  
+_________________________________________________________________ 
 
 ---
 
@@ -365,7 +365,6 @@ _________________________________________________________________
 - Precision: 0.85
 - Recall: 0.81
 - F1-Score: 0.74
-
 
 **Confusion Matrix / Visualization:**  
 <img width="458" height="402" alt="Confusion Matrix-Naive Bayes" src="https://github.com/user-attachments/assets/0aef925d-92ad-48c4-b91f-33fc2efb1d2d" />
@@ -503,7 +502,7 @@ Saran pengembangan untuk proyek selanjutnya:
 
 ### 10.1 GitHub Repository
 
-**Link Repository:** [URL GitHub Anda]
+**Link Repository:** https://github.com/adammahabayu/UAS_Praktik_Teknik_2025_TRPL-5A_Data-Science
 
 **Repository harus berisi:**
 - ✅ Notebook Jupyter/Colab dengan hasil running
@@ -526,3 +525,4 @@ seaborn==0.13.1
 tensorflow==2.15.0
 nltk==3.8.1
 joblib==1.3.2
+
