@@ -11,7 +11,7 @@
 **Dosen Pengampu:** Gus Nanang Syaifuddiin  
 **Tahun Akademik:** 2024/2025  
 **Link GitHub Repository:** https://github.com/adammahabayu/UAS_Praktik_Teknik_2025_TRPL-5A_Data-Science  
-**Link Video Pembahasan:** [Isi Link Video YouTube Anda Disini]  
+**Link Video Pembahasan:** https://youtu.be/4Z4fVDb-uE0  
 
 ---
 
@@ -525,4 +525,5 @@ seaborn==0.13.1
 tensorflow==2.15.0
 nltk==3.8.1
 joblib==1.3.2
+
 
