@@ -4,7 +4,7 @@ Klasifikasi Otomatis Abstrak Jurnal Ilmiah Menggunakan LSTM dan Support Vector M
 ## 👤 Informasi
 - **Nama:** Adam Mahabayu Muhibbulloh  
 - **Repo:** https://github.com/adammahabayu/UAS_Praktik_Teknik_2025_TRPL-5A_Data-Science 
-- **Video:** [...]  
+- **Video:** https://youtu.be/4Z4fVDb-uE0
 
 ---
 
